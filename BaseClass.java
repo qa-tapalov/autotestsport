@@ -3,6 +3,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -35,6 +36,13 @@ public class BaseClass {
         URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver<>(url, capabilities);
+        System.out.println("Приложение запущено");
 
     }
+    @After
+    public void tearDown() throws InterruptedException {
+        driver.quit();
+        System.out.println("Приложение закрыто");
+    }
+
     }
