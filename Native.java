@@ -1,20 +1,34 @@
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidTouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-import static org.junit.Assert.*;
-
 public class Native extends BaseClass {
 
     @Test
-    public void test() {
+    public void splash(){
+        MobileElement button_next = (MobileElement) driver.findElementById("ru.sportmaster.app:id/btnOnward");
+        button_next.click();
+        button_next.click();
+        button_next.click();
+        button_next.click();
+        button_next.click();
+        button_next.click();
+
+
+    }
+
+
+
+    @Test
+    public void test_helps() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         MobileElement close = (MobileElement) driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
-        MobileElement catalog = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCatalog");
+        MobileElement catalog = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/ivCatalog")));
         catalog.click();
 
 
@@ -49,5 +63,41 @@ public class Native extends BaseClass {
         }
         else { System.out.println("Название подсказки в карточке товара не корректно: " + help_item.getText());
         close_help_item.click();}
+
+//        MobileElement set = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.view.View[2]");
+        AndroidTouchAction action = new AndroidTouchAction(driver);
+        action.press(PointOption.point(726, 1400)).moveTo(PointOption.point(726,700)).release().perform();
+
+
+        MobileElement size = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[1]");
+        size.click();
+        MobileElement buy = (MobileElement) driver.findElementById("ru.sportmaster.app:id/buy");
+        buy.click();
+
+
+        MobileElement basketItemCount = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/basketItemCount")));
+
+        MobileElement basketIcon = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCart");
+        basketIcon.click();
+
+        MobileElement close_help_basket = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
+        MobileElement help_basket = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.TextView");
+        if (help_basket.getText().equals("Для удаления позиции сдвиньте строку влево или нажимайте на знак минус, пока количество не уменьшится до 0.")) {
+            System.out.println("Название подсказки в корзине корректно: " + help_basket.getText());
+            close_help_basket.click();
+        }
+        else {
+            System.out.println("Название подсказки в корзине не корректно: " + help_basket.getText());
+            close_help_basket.click();
+
+        }
+
+
+
+//
+
+
+
+
     }
 }
