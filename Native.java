@@ -12,13 +12,12 @@ public class Native extends BaseClass {
     public void splash() throws InterruptedException {
 
         for (int i = 0; i < 6; i++){
-            MobileElement button_next = driver.findElementById("ru.sportmaster.app:id/btnOnward");
+            WebDriverWait wait = new WebDriverWait(driver, 5);
+            MobileElement button_next = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/btnOnward")));
             MobileElement title = driver.findElementById("ru.sportmaster.app:id/title");
             MobileElement title_description = driver.findElementById("ru.sportmaster.app:id/description");
             System.out.println("Отображение экрана: " + title.getText() + " - " + title_description.getText());
             button_next.click();
-            Thread.sleep(2000);
-
 
         }
     }
@@ -28,6 +27,7 @@ public class Native extends BaseClass {
     @Test
     public void test_helps() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
+
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
         MobileElement catalog = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/ivCatalog")));
