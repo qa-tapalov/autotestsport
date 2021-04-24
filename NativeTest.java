@@ -1,9 +1,11 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,46 +15,88 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class NativeTest {
+public class NativeTest extends BaseClass {
+
+    @Test
+    public void splash() {
+
+        for (int i = 0; i < 6; i++) {
+            WebDriverWait wait = new WebDriverWait(driver, 5);
+            wait.until(ExpectedConditions.visibilityOf(list_elements.button_next));
+            System.out.println("Отображение экрана: " + list_elements.title.getText() + " - " + list_elements.title_description.getText());
+            list_elements.button_next.click();
+
+        }
+    }
 
 
 
     @Test
-    public void test() throws MalformedURLException, InterruptedException{
+    public void test_help() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        list_elements.close.click();
+        wait.until(ExpectedConditions.visibilityOf(list_elements.catalog));
+        list_elements.catalog.click();
+        wait.until(ExpectedConditions.visibilityOf(list_elements.close_help_catalog));
 
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "5.1");
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "m2 note");
-        capabilities.setCapability("appPackage", "ru.sportmaster.app");
-        capabilities.setCapability("appActivity", "activity.MainActivity");
+        if (list_elements.help_catalog.getText().equals("Чтобы найти нужный вам товар, сделайте фото или выберите изображение из галереи.")){
+            System.out.println("Название подсказки в каталоге корректно: " + list_elements.help_catalog.getText());
+            list_elements.close_help_catalog.click();
+        }
+        else {
+            System.out.println("Название подсказки в каталоге некорректно: "+ list_elements.help_catalog.getText());
+            list_elements.close_help_catalog.click();}
 
-        URL url = new URL("http://127.0.0.1:4723/wd/hub");
-        AppiumDriver driver = new AndroidDriver<>(url, capabilities);
+        wait.until(ExpectedConditions.visibilityOf(list_elements.category));
+
+        list_elements.category.click();
+
+        wait.until(ExpectedConditions.visibilityOf(list_elements.subCategory));
+        list_elements.subCategory.click();
+
+        wait.until(ExpectedConditions.visibilityOf(list_elements.items));
+        list_elements.items.click();
+
+        wait.until(ExpectedConditions.visibilityOf(list_elements.item));
+        list_elements.item.click();
+
+        wait.until(ExpectedConditions.visibilityOf(list_elements.close_help_item));
+        if ( list_elements.help_item.getText().equals("Теперь можно поделиться с друзьями")){
+            System.out.println("Название подсказки в карточке товара корректно: " + list_elements.help_item.getText());
+            list_elements.close_help_item.click();
+        }
+        else { System.out.println("Название подсказки в карточке товара не корректно: " + list_elements.help_item.getText());
+            list_elements.close_help_item.click();}
+
+        AndroidTouchAction action = new AndroidTouchAction(driver);
+        action.press(PointOption.point(726, 1400)).moveTo(PointOption.point(726,700)).release().perform();
 
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        System.out.println("Step 1. Launch app");
-
-        MobileElement el1 = (MobileElement) driver.findElementById("ru.sportmaster.app:id/btnClose");
-        el1.click();
-        MobileElement el2 = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCatalog");
-        el2.click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
+        list_elements.size.click();
+        list_elements.buy.click();
 
 
-        MobileElement el3 = (MobileElement) driver.findElementById("ru.sportmaster.app:id/close");
-        el3.click();
+        wait.until(ExpectedConditions.visibilityOf(list_elements.basketItemCount));
+        list_elements.basketIcon.click();
 
-//        MobileElement el4 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.view.View/androidx.viewpager.widget.ViewPager/android.widget.FrameLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
-//        el4.click();
-//        MobileElement el5 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
-//        el5.click();
-//        MobileElement el6 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
-//        el6.click();
-//        MobileElement el7 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.View/android.view.View/android.widget.RelativeLayout[1]/android.widget.RelativeLayout");
-//        el7.click(); //добавить в корзину
+        wait.until(ExpectedConditions.visibilityOf(list_elements.close_help_basket));
+        if (list_elements.help_basket.getText().equals("Для удаления позиции сдвиньте строку влево или нажимайте на знак минус, пока количество не уменьшится до 0.")) {
+            System.out.println("Название подсказки в корзине корректно: " + list_elements.help_basket.getText());
+            list_elements.close_help_basket.click();
+        }
+        else {
+            System.out.println("Название подсказки в корзине не корректно: " + list_elements.help_basket.getText());
+            list_elements.close_help_basket.click();
+
+        }
+
+
+
+
+
+
+
 
 
     }
