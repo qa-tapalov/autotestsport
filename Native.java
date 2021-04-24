@@ -9,16 +9,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Native extends BaseClass {
 
     @Test
-    public void splash(){
-        MobileElement button_next = (MobileElement) driver.findElementById("ru.sportmaster.app:id/btnOnward");
-        button_next.click();
-        button_next.click();
-        button_next.click();
-        button_next.click();
-        button_next.click();
-        button_next.click();
+    public void splash() throws InterruptedException {
+
+        for (int i = 0; i < 6; i++){
+            MobileElement button_next = driver.findElementById("ru.sportmaster.app:id/btnOnward");
+            MobileElement title = driver.findElementById("ru.sportmaster.app:id/title");
+            MobileElement title_description = driver.findElementById("ru.sportmaster.app:id/description");
+            System.out.println("Отображение экрана: " + title.getText() + " - " + title_description.getText());
+            button_next.click();
+            Thread.sleep(2000);
 
 
+        }
     }
 
 
@@ -26,7 +28,7 @@ public class Native extends BaseClass {
     @Test
     public void test_helps() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        MobileElement close = (MobileElement) driver.findElementById("ru.sportmaster.app:id/btnClose");
+        MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
         MobileElement catalog = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/ivCatalog")));
         catalog.click();
@@ -43,10 +45,10 @@ public class Native extends BaseClass {
         close_help_catalog.click();}
 
 
-        MobileElement category = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.view.View/androidx.viewpager.widget.ViewPager/android.widget.FrameLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
+        MobileElement category = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.view.View/androidx.viewpager.widget.ViewPager/android.widget.FrameLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView")));
         category.click();
 
-        MobileElement subCategory = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
+        MobileElement subCategory = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
         subCategory.click();
         MobileElement items = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
         items.click();
@@ -69,15 +71,15 @@ public class Native extends BaseClass {
         action.press(PointOption.point(726, 1400)).moveTo(PointOption.point(726,700)).release().perform();
 
 
-        MobileElement size = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[1]");
+        MobileElement size = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[1]");
         size.click();
-        MobileElement buy = (MobileElement) driver.findElementById("ru.sportmaster.app:id/buy");
+        MobileElement buy = driver.findElementById("ru.sportmaster.app:id/buy");
         buy.click();
 
 
         MobileElement basketItemCount = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/basketItemCount")));
 
-        MobileElement basketIcon = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCart");
+        MobileElement basketIcon = driver.findElementById("ru.sportmaster.app:id/ivCart");
         basketIcon.click();
 
         MobileElement close_help_basket = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
