@@ -31,6 +31,7 @@ public class BaseClass {
 
         driver = new AndroidDriver<>(url, capabilities);
         System.out.println("Приложение запущено");
+        System.out.println();
 
     }
     static class  list_elements {
@@ -63,6 +64,7 @@ public class BaseClass {
     @After
     public void tearDown()  {
         driver.quit();
+        System.out.println();
         System.out.println("Приложение закрыто");
     }
 
