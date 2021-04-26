@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Scanner;
 
 
 public class Native extends BaseClass {
@@ -29,32 +28,34 @@ public class Native extends BaseClass {
 
     @Test
     public void checkNavigationBar(){
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
 
+//        MobileElement close_button = driver.findElement(By.id("ru.sportmaster.app:id/closeButton"));
+//        close_button.click();
+
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/image")));
         System.out.println("Открыто главное меню");
 
-        MobileElement catalog = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCatalog");
+        MobileElement catalog =  driver.findElementById("ru.sportmaster.app:id/ivCatalog");
         catalog.click();
         MobileElement close_catalog =(MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
         System.out.println("Открыт каталог");
         close_catalog.click();
 
-
-        MobileElement store = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivStores");
+        MobileElement store =  driver.findElementById("ru.sportmaster.app:id/ivStores");
         store.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/eSearch")));
         System.out.println("Открыт список магазинов");
 
-        MobileElement basket = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivCart");
+        MobileElement basket =  driver.findElementById("ru.sportmaster.app:id/ivCart");
         basket.click();
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.View/androidx.viewpager.widget.ViewPager/android.widget.FrameLayout/android.view.View/android.widget.RelativeLayout[2]/android.widget.RelativeLayout[2]")));
         System.out.println("Открыта корзина");
 
-        MobileElement profile = (MobileElement) driver.findElementById("ru.sportmaster.app:id/ivAccount");
+        MobileElement profile =  driver.findElementById("ru.sportmaster.app:id/ivAccount");
         profile.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/ePhone")));
         System.out.println("Открыт экран профиля");
@@ -67,7 +68,7 @@ public class Native extends BaseClass {
 
     @Test
     public void test_helps() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
@@ -117,7 +118,7 @@ public class Native extends BaseClass {
         buy.click();
 
 
-        MobileElement basketItemCount = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/basketItemCount")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/basketItemCount")));
 
         MobileElement basketIcon = driver.findElementById("ru.sportmaster.app:id/ivCart");
         basketIcon.click();
@@ -139,7 +140,7 @@ public class Native extends BaseClass {
 
     @Test
     public void checkProductCard() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
@@ -166,7 +167,7 @@ public class Native extends BaseClass {
         MobileElement close_help_item = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
         close_help_item.click();
 
-        MobileElement name_item = driver.findElementById("ru.sportmaster.app:id/name");
+        MobileElement name_item = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/name")));
         System.out.println("Название товара присутствует: " + name_item.getText());
 
         MobileElement article_item = driver.findElementById("ru.sportmaster.app:id/article");
