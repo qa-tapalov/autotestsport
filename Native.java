@@ -10,17 +10,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Native extends BaseClass {
 
+    private final String[] xpathElements = {
+            "ru.sportmaster.app:id/title",
+            "ru.sportmaster.app:id/description",
+            "ru.sportmaster.app:id/btnOnward"
+
+    };
+
     @Test
     public void splash()  {
 
         for (int i = 0; i < 6; i++){
-            WebDriverWait wait = new WebDriverWait(driver, 5);
-            MobileElement button_next = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/btnOnward")));
-            MobileElement title = driver.findElementById("ru.sportmaster.app:id/title");
-            MobileElement title_description = driver.findElementById("ru.sportmaster.app:id/description");
+            MobileElement button_next = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id(xpathElements[2])));
+            MobileElement title = driver.findElementById(xpathElements[0]);
+            MobileElement titleDescription = driver.findElementById(xpathElements[1]);
             System.out.println("Отображение экрана: " + title.getText());
-            System.out.println("Описание: " + title_description.getText());
-            System.out.println();
+            System.out.println("Описание: " + titleDescription.getText());
+            System.out.println("___");
             button_next.click();
 
         }
@@ -28,7 +34,6 @@ public class Native extends BaseClass {
 
     @Test
     public void checkNavigationBar(){
-        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
@@ -68,7 +73,6 @@ public class Native extends BaseClass {
 
     @Test
     public void test_helps() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
@@ -112,7 +116,7 @@ public class Native extends BaseClass {
         action.press(PointOption.point(726, 1400)).moveTo(PointOption.point(726,700)).release().perform();
 
 
-        MobileElement size = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[1]");
+        MobileElement size = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[5]");
         size.click();
         MobileElement buy = driver.findElementById("ru.sportmaster.app:id/buy");
         buy.click();
@@ -140,7 +144,6 @@ public class Native extends BaseClass {
 
     @Test
     public void checkProductCard() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
         close.click();
@@ -202,6 +205,65 @@ public class Native extends BaseClass {
 
         MobileElement view = driver.findElementById("ru.sportmaster.app:id/faqView");
         System.out.println("Блок вопрос/ответ присутствует");
+
+    }
+
+    @Test
+    public void addAndDeleteItemFromBasket() {
+
+        MobileElement close = driver.findElementById("ru.sportmaster.app:id/btnClose");
+        close.click();
+        MobileElement catalog = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/ivCatalog")));
+        catalog.click();
+
+
+        MobileElement close_help_catalog = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
+        MobileElement help_catalog = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.TextView[2]");
+        close_help_catalog.click();
+
+        MobileElement category = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.view.View/androidx.viewpager.widget.ViewPager/android.widget.FrameLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView")));
+        category.click();
+
+        MobileElement subCategory = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView")));
+        subCategory.click();
+        MobileElement items =  driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.view.View/android.widget.RelativeLayout[1]/android.widget.TextView");
+        items.click();
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.View/android.view.View/android.widget.RelativeLayout[1]/android.widget.RelativeLayout/android.widget.TextView[1]")));
+        MobileElement item =  driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.view.View/android.view.View/android.widget.RelativeLayout[1]/android.widget.RelativeLayout/android.widget.TextView[1]");
+        item.click();
+
+        MobileElement close_help_item = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
+        MobileElement help_item = driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.TextView[1]"));
+        close_help_item.click();
+        MobileElement nameItem = driver.findElement(By.id("ru.sportmaster.app:id/name"));
+
+        AndroidTouchAction action = new AndroidTouchAction(driver);
+        action.press(PointOption.point(726, 1400)).moveTo(PointOption.point(726,700)).release().perform();
+
+
+        MobileElement size = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.FrameLayout/android.view.View[1]/android.widget.TextView[5]");
+        size.click();
+        MobileElement buy = driver.findElementById("ru.sportmaster.app:id/buy");
+        buy.click();
+        System.out.println("Товар '" + nameItem.getText() + "' добавлен в корзину");
+
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/basketItemCount")));
+
+        MobileElement basketIcon = driver.findElementById("ru.sportmaster.app:id/ivCart");
+        basketIcon.click();
+
+        MobileElement close_help_basket = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/close")));
+        MobileElement help_basket = driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.TextView");
+
+        close_help_basket.click();
+
+        MobileElement deleteItemFromBasket = (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ru.sportmaster.app:id/deleteButton")));
+        deleteItemFromBasket.click();
+        System.out.println("Товар '" + nameItem.getText() + "' удалён из корзины");
+
+
 
     }
 
